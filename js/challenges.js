@@ -18,3 +18,18 @@ let questionAndAnswer = {
 // mistakes but closes the quiz if you make 3 
 // mistakes.
 // Lose one point per mistake done.
+
+let showMessage;
+let msg = "The Good Place is a great series.";
+
+showMessage = function (message) {
+	console.log(message);
+};
+
+showMessage(msg);
+
+msg = prompt("Please enter your message.", " ")
+showMessage(msg);
+
+// Save the message in an object that doesn't get 
+// overwritten e.g.: oldMsg.date etc...

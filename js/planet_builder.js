@@ -63,6 +63,8 @@ let point2;
 let move;
 let showPoint;
 
+// What the fuck is this about?
+
 move = function (point, change) {
 	return {
 		x: point.x + change.x,

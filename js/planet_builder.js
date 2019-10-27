@@ -84,3 +84,50 @@ showPoint(point1);
 console.log("Move 4 across and 2 down.");
 showPoint(point2);
 
+// Another disconnected activity
+
+let spacer2 = {
+	blank : function () {
+	return "";
+	},
+	newLine : function () {
+	return "\n";
+	}
+};
+
+console.log(spacer2.blank());
+console.log("Line 1" + spacer2.newLine() + "Line 2");
+console.log(spacer2.blank());
+
+// And another 
+
+let showSmaller = function (num1, num2) {
+	let smaller = Math.min(num1, num2);
+	let larger = Math.max(num1, num2);
+
+	console.log(smaller + " is smaller than " + larger);
+}
+
+showSmaller(200, 3);
+showSmaller(-200, 3);
+
+// And another
+
+let line = function (lineLength) {
+	let line = "==========----------++++++++++..........__________";
+	lineLength = Math.max(0, lineLength);
+	lineLength = Math.min(50, lineLength);
+	return line.substring(0, lineLength);
+}
+
+console.log(line(30));
+console.log(line(40));
+console.log(line(50));
+
+console.log(planet1.name.toUpperCase());
+console.log(planet1.name.substring(0, 3));
+
+let secretMessage = "I need to apply myself diligently to learn JavaScript like a motherfucker";
+
+let charIndex = secretMessage.indexOf("mot");
+console.log(secretMessage.substr(charIndex));

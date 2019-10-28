@@ -2,8 +2,8 @@
 let player1 = {
 	name : "Kandra",
 	health : 50,
-	place : "The Dungeon of D00m",
-	items : ["a rusty key", "the Sword of Destiny", "a piece of cheese"]
+	place : "The Dungeon of D00m                 ",
+	items : ["a rusty key", "the Sword of Destiny                               ", "a piece of cheese"]
 };
 
 let player2 = {
@@ -24,13 +24,14 @@ let leftMarginChar = "| ";
 let rightMarginChar = " |";
 let dividerChar = "-";
 let bulletChar = "  + ";
-let hasItemsMessage = " has the following items:";
-let noItemsMessage = " has no items.";
+let hasItemsMessage = " has the following items                      :";
+let noItemsMessage = " has no items                                   .";
 let i = "";
+let j = "";
 
 // New way of doing things
 
-let getPlayerName = function (player, marginChar) {
+let getPlayerName = function (player) {
 	return player.name;
 };
 let getPlayerHealth = function (player) {
@@ -39,23 +40,6 @@ let getPlayerHealth = function (player) {
 let getPlayerPlace = function (player) {
 	return player.name + " is at " + player.place + ".";
 };
-let showPlayerItems = function (player) {
-
-	let showItemLine = "";
-	if (player.items.length === 0) {
-		showItemLine += leftMarginChar + player.name + noItemsMessage + rightMarginChar;
-	} else {
-		showItemLine += player.name + hasItemsMessage;
-
-		for (i = 0; i < player.items.length; i++) {
-			item = player.items[i] + ".";
-			showItemLine = bulletChar + item.charAt(0).toUpperCase() + item.substring(1);
-
-		}
-	}
-	return showItemLine;	
-};
-console.log(showPlayerItems(player1));
 
 let longestItemLength = function (player) {
 	let itemsLengthArray = [];
@@ -64,26 +48,32 @@ let longestItemLength = function (player) {
 		itemLine += player.name + noItemsMessage;
 		itemsLengthArray.push(itemLine.length);
 	} else {
-		itemLine = player.name + hasItemsMessage;
+		
+		itemLine += player.name + hasItemsMessage;
 		itemsLengthArray.push(itemLine.length);
-		console.log(itemLine + itemsLengthArray[0]);
+		
+		/*
 		for (i = 0; i < player.items.length; i++) {
-			itemLine = bulletChar + player.items[i] + ".";
-			itemsLengthArray.push(itemLine.length);
-			console.log(itemLine + itemsLengthArray[i + 1]);
+			let item = bulletChar + player.items[i] + "."
+			itemLine = item.length;
+			
+		itemsLengthArray.push(itemLine);
+		
 		}
+*/
 	}
 	longestLength = Math.max(...itemsLengthArray);
 	return longestLength;
 };
 console.log(longestItemLength(player1));
 
+
 let calculateDividerLength = function (player) {
 	let getLongestLine = Math.max(
 		getPlayerName(player).length, 
 		getPlayerHealth(player).length,
 		getPlayerPlace(player).length,
-		// longestItemLength(player)
+		longestItemLength(player)
 	);
 	if (getLongestLine < 40) {
 		getLongestLine = 40;
@@ -106,16 +96,99 @@ let showDivider = function (player) {
  // Replace won't substitute a space " " for a string "|"
  
  // console.log(getPlayerName(player1).replace(String(getPlayerName(player1)).charAt(10), "|"));
+let showPlayerName = function (player) {
+	let calculateLineFiller = "";
+	let itemLine = "";
+	let lineFiller = "";
+	itemLine = leftMarginChar + getPlayerName(player); 
+	calculateLineFiller = Math.abs(itemLine.length - calculateDividerLength(player));
+	for (i = 0; i < calculateLineFiller - rightMarginChar.length; i++) {
+			lineFiller += " ";
+		}
+		lineFiller += rightMarginChar;
+		showItemLine = leftMarginChar + getPlayerName(player) + lineFiller;
+	return showItemLine;
+};
+let showPlayerHealth = function (player) {
+	let calculateLineFiller = "";
+	let itemLine = "";
+	let lineFiller = "";
+	itemLine = leftMarginChar + getPlayerHealth(player); 
+	calculateLineFiller = Math.abs(itemLine.length - calculateDividerLength(player));
+	for (i = 0; i < calculateLineFiller - rightMarginChar.length; i++) {
+			lineFiller += " ";
+		}
+		lineFiller += rightMarginChar;
+		showItemLine = leftMarginChar + getPlayerHealth(player) + lineFiller;
+	return showItemLine;
+};
+let showPlayerPlace = function (player) {
+	let calculateLineFiller = "";
+	let itemLine = "";
+	let lineFiller = "";
+	itemLine = leftMarginChar + getPlayerPlace(player); 
+	calculateLineFiller = Math.abs(itemLine.length - calculateDividerLength(player));
+	for (i = 0; i < calculateLineFiller - rightMarginChar.length; i++) {
+			lineFiller += " ";
+		}
+		lineFiller += rightMarginChar;
+		showItemLine = leftMarginChar + getPlayerPlace(player) + lineFiller;
+	return showItemLine;
+};
 
+ let showPlayerItems = function (player) {
+	let lineFiller = "";
+	let calculateLineFiller = "";
+	let itemLine = "";
+	let item = "";
+	let itemList = "";
+	let showItemLine = "";
+	if (player.items.length === 0) {
+		itemLine = leftMarginChar + player.name + noItemsMessage;
+		calculateLineFiller = Math.abs(itemLine.length - calculateDividerLength(player));
+		for (i = 0; i < calculateLineFiller - rightMarginChar.length; i++) {
+			lineFiller += " ";
+		}
+		lineFiller += rightMarginChar;
+		showItemLine = leftMarginChar + player.name + noItemsMessage + lineFiller;
+	} else {
+		itemLine = leftMarginChar + player.name + hasItemsMessage;
+		calculateLineFiller = Math.abs(itemLine.length - calculateDividerLength(player));
+		for (i = 0; i < calculateLineFiller - rightMarginChar.length; i++) {
+			lineFiller += " ";
+		}
+		lineFiller += rightMarginChar;
+		showItemLine += leftMarginChar + player.name + hasItemsMessage + lineFiller;
+		
+		for (i = 0; i < player.items.length; i++) {
+			item = player.items[i] + ".";
+			itemList = leftMarginChar + bulletChar + item;
+			lineFiller = "";
+			calculateLineFiller = Math.abs(itemList.length - calculateDividerLength(player));
+			
+			for (j = 0; j < calculateLineFiller - rightMarginChar.length; j++) {
+				lineFiller += " ";
+			}
+
+			lineFiller += rightMarginChar;
+			showItemLine += "\n" + leftMarginChar + bulletChar + item.charAt(0).toUpperCase() + item.substring(1) + lineFiller;
+			
+		}
+		
+	}
+	return showItemLine;	
+};
+showPlayerItems(player3);
+showPlayerItems(player1);
 let getPlayerInfo = function (player) {
 	let playerInfo = "";
 	playerInfo += "\n";
 	playerInfo += "\n" + showDivider(player);
-	playerInfo += "\n" + leftMarginChar + getPlayerName(player);
+	playerInfo += "\n" + showPlayerName(player);
 	playerInfo += "\n" + showDivider(player);
-	playerInfo += "\n" + leftMarginChar + getPlayerHealth(player);
-	playerInfo += "\n" + leftMarginChar + getPlayerPlace(player);
-	// playerInfo += "\n" + getPlayerItems(player);
+	playerInfo += "\n" + showPlayerHealth(player);
+	playerInfo += "\n" + showPlayerPlace(player);
+	playerInfo += "\n" + showPlayerItems(player);
 	playerInfo += "\n" + showDivider(player);
 	playerInfo += "\n";
 

@@ -2,8 +2,8 @@
 let player1 = {
 	name : "Kandra",
 	health : 50,
-	place : "The Dungeon of D00m                 ",
-	items : ["a rusty key", "the Sword of Destiny                               ", "a piece of cheese"]
+	place : "The Dungeon of D00m",
+	items : ["a rusty key", "the Sword of Destiny", "a piece of cheese"]
 };
 
 let player2 = {
@@ -24,56 +24,73 @@ let leftMarginChar = "| ";
 let rightMarginChar = " |";
 let dividerChar = "-";
 let bulletChar = "  + ";
-let hasItemsMessage = " has the following items                      :";
-let noItemsMessage = " has no items                                   .";
+let hasItemsMessage = " has the following items:";
+let noItemsMessage = " has no items.";
 let i = "";
 let j = "";
 
 // New way of doing things
 
 let getPlayerName = function (player) {
+	console.log("from getPlayerName: " + player.name);
 	return player.name;
 };
 let getPlayerHealth = function (player) {
+	console.log("from getPlayerHealth: " + player.name);
 	return player.name + " has health at " + player.health + ".";
 };
 let getPlayerPlace = function (player) {
+	console.log("from getPlayerPlace: " + player.name);
 	return player.name + " is at " + player.place + ".";
 };
 
-let longestItemLength = function (player) {
+// Note to my future self: the function below just doesn't work when 
+// I try to circulate through the items and get the longest one out the 
+// whole group in an array. What the frack am I doing wrong?
+
+let getPlayerItems = function (player) {
 	let itemsLengthArray = [];
 	let itemLine = "";
+	/*
+	// I tried this and it didn't work, it just loops and hangs
+	for (i = 0; i < player.items.length; i++) {
+		// itemsLengthArray.push(player.items[i].length);
+		console.log(player.name + " " + player.items[i] + " " + player.items[i].length);
+	}
+	*/
 	if (player.items.length === 0) {
-		itemLine += player.name + noItemsMessage;
+		itemLine = player.name + noItemsMessage;
 		itemsLengthArray.push(itemLine.length);
 	} else {
-		
-		itemLine += player.name + hasItemsMessage;
+		itemLine = player.name + hasItemsMessage;
 		itemsLengthArray.push(itemLine.length);
-		
 		/*
+		// I tried this and it didn't work, it just hangs
 		for (i = 0; i < player.items.length; i++) {
-			let item = bulletChar + player.items[i] + "."
-			itemLine = item.length;
-			
-		itemsLengthArray.push(itemLine);
-		
+			itemsLengthArray.push(player.items[i].length);
 		}
-*/
+		*/
 	}
-	longestLength = Math.max(...itemsLengthArray);
-	return longestLength;
+	/*
+	// I tried this and it didn't work, it just loops forever and hangs
+	for (i = 0; i < player.items.length; i++) {
+		itemsLengthArray.push(player.items[i].length);
+	}
+	*/
+	return Math.max(...itemsLengthArray);
+	
 };
-console.log(longestItemLength(player1));
 
+// let playerItemsLength = getPlayerItems(player);
+
+// console.log(playerItemsLength);
 
 let calculateDividerLength = function (player) {
 	let getLongestLine = Math.max(
 		getPlayerName(player).length, 
 		getPlayerHealth(player).length,
 		getPlayerPlace(player).length,
-		longestItemLength(player)
+		getPlayerItems(player)
 	);
 	if (getLongestLine < 40) {
 		getLongestLine = 40;
@@ -133,6 +150,7 @@ let showPlayerPlace = function (player) {
 		}
 		lineFiller += rightMarginChar;
 		showItemLine = leftMarginChar + getPlayerPlace(player) + lineFiller;
+	console.log("from showPlayerPlace: " + showItemLine);
 	return showItemLine;
 };
 
@@ -176,10 +194,11 @@ let showPlayerPlace = function (player) {
 		}
 		
 	}
+	console.log(showItemLine);
 	return showItemLine;	
 };
-showPlayerItems(player3);
-showPlayerItems(player1);
+// showPlayerItems(player3);
+// showPlayerItems(player1);
 let getPlayerInfo = function (player) {
 	let playerInfo = "";
 	playerInfo += "\n";
@@ -192,9 +211,9 @@ let getPlayerInfo = function (player) {
 	playerInfo += "\n" + showDivider(player);
 	playerInfo += "\n";
 
-	return playerInfo;
+	console.log(playerInfo);
 };
 
-console.log(getPlayerInfo(player1));
-console.log(getPlayerInfo(player2));
-console.log(getPlayerInfo(player3));
+getPlayerInfo(player1);
+getPlayerInfo(player2);
+getPlayerInfo(player3);

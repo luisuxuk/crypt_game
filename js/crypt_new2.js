@@ -40,11 +40,14 @@ let getPlayerHealth = function (player) {
 let getPlayerPlace = function (player) {
 	return player.name + " is at " + player.place + ".";
 };
-
+/*
 let longestItemLength = function (player) {
 	let itemsLengthArray = [];
 	let itemLine = "";
-	if (player.items.length === 0) {
+	let item = "";
+	let totalItems = player.items.length;
+	console.log(totalItems);
+	if (totalItems === 0) {
 		itemLine += player.name + noItemsMessage;
 		itemsLengthArray.push(itemLine.length);
 	} else {
@@ -52,37 +55,41 @@ let longestItemLength = function (player) {
 		itemLine += player.name + hasItemsMessage;
 		itemsLengthArray.push(itemLine.length);
 		
-		/*
-		for (i = 0; i < player.items.length; i++) {
-			let item = bulletChar + player.items[i] + "."
-			itemLine = item.length;
-			
-		itemsLengthArray.push(itemLine);
 		
-		}
-*/
+		// for (i = 0; i < totalItems; i++) {
+			// let item = bulletChar + player.items[i] + ".";
+			console.log(totalItems);
+			// itemLine = item.length;
+			
+		// itemsLengthArray.push(itemLine);
+		
+		// }
+
 	}
 	longestLength = Math.max(...itemsLengthArray);
 	return longestLength;
 };
-console.log(longestItemLength(player1));
-
-
+*/
 let calculateDividerLength = function (player) {
 	let getLongestLine = Math.max(
 		getPlayerName(player).length, 
 		getPlayerHealth(player).length,
 		getPlayerPlace(player).length,
-		longestItemLength(player)
+		// longestItemLength(player)
 	);
+
 	if (getLongestLine < 40) {
 		getLongestLine = 40;
 		return getLongestLine + leftMarginChar.length + rightMarginChar.length;
 	} else {
 		return getLongestLine + leftMarginChar.length + rightMarginChar.length;
+			console.log(getLongestLine);
 	}
+
 };
 
+console.log (calculateDividerLength(player1));
+console.log (calculateDividerLength(player2));
 let showDivider = function (player) {
 	let dividerLine = "";
 	for (i = 0; i < calculateDividerLength(player); i++) {
